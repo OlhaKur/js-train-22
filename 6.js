@@ -26,7 +26,11 @@ class AuthProcessor {
 // TwoStepProcessor Клас обробника, який перевіряє двофакторний код. Наслідує базовий клас AuthProcessor.
 class TwoStepProcessor extends AuthProcessor {
   validate(username, passkey) {
-    if (username === "john" && passkey === "password" && isValidTwoStepCode()) {
+    if (
+      username === "john" &&
+      passkey === "password" &&
+      this.isValidTwoStepCode()
+    ) {
       console.log(`Вхід дозволено з двофакторною аутентифікацією`);
       return true;
     } else {
@@ -45,12 +49,12 @@ class TwoStepProcessor extends AuthProcessor {
 
 // RoleProcessor Клас обробника, який перевіряє ролі користувача. Наслідує базовий клас AuthProcessor.
 class RoleProcessor extends AuthProcessor {
-  validate(role) {
-    if (role === guest) {
+  validate(username, passkey) {
+    if (username === "guest") {
       console.log(`Вхід дозволено з роллю гостя`);
       return true;
     } else {
-      return super.validate(role);
+      return super.validate(username, passkey);
     }
   }
   // validate Метод для перевірки аутентифікації. Перевіряє роль користувача.

@@ -10,6 +10,10 @@ class Participant {
     const preparedMessage = this.prepareMessage(text);
     this.communicator.dispatchMessage(preparedMessage);
   }
+  dispatchMessage(text) {
+    const formattedMessage = this.prepareMessage(text);
+    this.communicator.transmit(formattedMessage);
+  }
 
   prepareMessage(text) {
     return `[${this.alias}]: ${text}`;
